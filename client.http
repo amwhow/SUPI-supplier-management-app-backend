@@ -11,6 +11,17 @@ Content-Type: application/json
 }
 
 
+### Login user
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "auth": {
+    "email": "michael1@test.com",
+    "password": "password"
+  }
+}
+
 ### Create supplier
 POST http://localhost:3000/suppliers
 Content-Type: application/json
