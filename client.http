@@ -1,0 +1,27 @@
+### Create method
+POST http://localhost:3000/api/auth/sign_up
+Content-Type: application/json
+
+{
+  "user_name": "Michael1",
+  "email": "michael1@test.com",
+  "password": "password",
+  "password_confirmation": "password",
+  "company_name": "test_company"
+}
+
+
+### Create supplier
+POST http://localhost:3000/suppliers
+Content-Type: application/json
+
+{
+  "name": "supplier1",
+  "service": "service1",
+  "website": "website1",
+  "contact_name": "contact_name1",
+  "contact_email": "email@test.com",
+  "contact_number": "number1",
+  "description": "description1",
+  "note": "note1"
+}
