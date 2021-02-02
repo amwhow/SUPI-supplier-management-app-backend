@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_001335) do
+ActiveRecord::Schema.define(version: 2021_02_02_002231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,9 @@ ActiveRecord::Schema.define(version: 2021_02_01_001335) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "supplier_id"
+    t.bigint "user_id", null: false
     t.index ["supplier_id"], name: "index_documents_on_supplier_id"
+    t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -60,7 +62,9 @@ ActiveRecord::Schema.define(version: 2021_02_01_001335) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "purchase_order_id"
+    t.bigint "user_id", null: false
     t.index ["purchase_order_id"], name: "index_invoices_on_purchase_order_id"
+    t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
   create_table "purchase_orders", force: :cascade do |t|
@@ -71,7 +75,9 @@ ActiveRecord::Schema.define(version: 2021_02_01_001335) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "supplier_id", null: false
+    t.bigint "user_id", null: false
     t.index ["supplier_id"], name: "index_purchase_orders_on_supplier_id"
+    t.index ["user_id"], name: "index_purchase_orders_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -121,8 +127,11 @@ ActiveRecord::Schema.define(version: 2021_02_01_001335) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "documents", "suppliers"
+  add_foreign_key "documents", "users"
   add_foreign_key "invoices", "purchase_orders"
+  add_foreign_key "invoices", "users"
   add_foreign_key "purchase_orders", "suppliers"
+  add_foreign_key "purchase_orders", "users"
   add_foreign_key "reviews", "purchase_orders"
   add_foreign_key "suppliers", "users"
   add_foreign_key "user_suppliers", "suppliers"
