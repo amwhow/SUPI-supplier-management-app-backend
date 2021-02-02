@@ -13,7 +13,7 @@ class PurchaseOrdersController < ApplicationController
     purchase_order = PurchaseOrder.new(purchase_orders_params)
     # a purchase_order can engage with different users/companies
     purchase_order.user_id = current_user.id   
-    if subscription.save
+    if purchase_order.save
       render status: :created 
     else
       render status: :bad_request
