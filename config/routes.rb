@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   resources :suppliers
+  resources :purchase_orders
+  resources :invoices
+  resources :documents
+  resources :reviews
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # scope '/api' do
   #   scope '/auth' do
