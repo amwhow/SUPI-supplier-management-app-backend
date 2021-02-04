@@ -13,7 +13,7 @@ class SuppliersController < ApplicationController
     supplier = Supplier.new(suppliers_params)
     # a supplier can engage with different users/companies
     supplier.user_ids.push(current_user.id)    
-    if subscription.save
+    if supplier.save
       render status: :created 
     else
       render status: :bad_request
