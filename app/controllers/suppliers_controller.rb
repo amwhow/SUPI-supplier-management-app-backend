@@ -1,8 +1,7 @@
 class SuppliersController < ApplicationController
   def index 
     # should be current_user.suppliers
-    @suppliers = Supplier.all
-    puts @suppliers
+    @suppliers = current_user.suppliers
     render json: @suppliers
   end
 

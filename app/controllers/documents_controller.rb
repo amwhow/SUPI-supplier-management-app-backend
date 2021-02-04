@@ -36,7 +36,7 @@ class DocumentsController < ApplicationController
   private
 
   def document_params
-    params.require(:document).permit(:user_id, :supplier_id, :expiryDate, :documentType, :supplier_document)
+    params.require(:document).permit(:supplier_id, :expiryDate, :documentType, :supplier_document)
   end
 
   def set_document

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   #     get "/status", to: "status#index"
   #   end
   # end
-  post '/login', to: 'user_token#create'
-  get '/status', to: 'status#index'
   post '/sign_up', to: 'users#create'
+  post '/login', to: 'users#sign_in'
+  get '/status', to: 'status#index'
 end
