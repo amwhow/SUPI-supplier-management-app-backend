@@ -106,6 +106,15 @@ ActiveRecord::Schema.define(version: 2021_02_04_025922) do
     t.index ["user_id"], name: "index_suppliers_on_user_id"
   end
 
+  create_table "user_suppliers", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.bigint "supplier_id", null: false
+    t.index ["supplier_id"], name: "index_user_suppliers_on_supplier_id"
+    t.index ["user_id"], name: "index_user_suppliers_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "user_name"
     t.string "email"
@@ -125,4 +134,6 @@ ActiveRecord::Schema.define(version: 2021_02_04_025922) do
   add_foreign_key "purchase_orders", "users"
   add_foreign_key "reviews", "purchase_orders"
   add_foreign_key "suppliers", "users"
+  add_foreign_key "user_suppliers", "suppliers"
+  add_foreign_key "user_suppliers", "users"
 end

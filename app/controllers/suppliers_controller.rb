@@ -1,4 +1,6 @@
 class SuppliersController < ApplicationController
+  before_action :set_supplier, only: [:show, :create]
+
   def index 
     # should be current_user.suppliers
     @suppliers = current_user.suppliers
@@ -10,10 +12,10 @@ class SuppliersController < ApplicationController
   end 
 
   def create 
-    @supplier = Supplier.new(supplier_params)
+    supplier = Supplier.create(supplier_params)
     # a supplier can engage with different users/companies
-    @supplier.user_id = current_user.id   
-    if @supplier.save
+    supplier.user_id = current_user.id   
+    if supplier.save
       render status: :created 
     else
       render status: 400
