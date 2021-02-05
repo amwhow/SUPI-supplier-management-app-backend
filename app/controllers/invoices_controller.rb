@@ -3,7 +3,7 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :update, :destroy]
   
   def index
-    @invoices = current_user.Invoice.all
+    @invoices = current_user.invoices
     render json: @invoices
   end
 

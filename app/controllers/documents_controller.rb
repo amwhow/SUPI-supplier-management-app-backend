@@ -3,7 +3,7 @@ class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :update, :destroy]
 
   def index
-    @documents = current_user.Document.all
+    @documents = current_user.documents
     render json: @documents
   end
 

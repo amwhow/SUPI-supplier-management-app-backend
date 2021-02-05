@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_many :suppliers
+  has_many :purchase_orders
+  has_many :documents
+  has_many :invoices
   has_one_attached :logo
   has_secure_password
   
