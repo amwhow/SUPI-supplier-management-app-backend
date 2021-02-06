@@ -15,6 +15,7 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.new(purchase_order_id: params[:purchase_order_id], receivedDate: params[:receivedDate], dueDate: params[:dueDate], totalPrice: params[:totalPrice], paid: params[:paid], invoice_document: params[:invoice_document])
     @invoice.user_id = current_user.id
     if @invoice.save
+      @invoice.invoice_document.attach(params[:invoice_document])
       render status: :created
     else
       render status: :bad_request

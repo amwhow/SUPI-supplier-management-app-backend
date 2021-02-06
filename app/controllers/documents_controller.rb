@@ -15,6 +15,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(supplier_id: params[:supplier_id], expiryDate: params[:expiryDate], documentType: params[:documentType], supplier_document: params[:supplier_document])
     @document.user_id = current_user.id
     if @document.save
+      @document.supplier_document.attach(params[:supplier_document])
       render status: :created
     else
       render status: :bad_request
