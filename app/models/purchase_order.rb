@@ -3,7 +3,7 @@ class PurchaseOrder < ApplicationRecord
   # belongs_to :user
   has_one :invoice
   has_one :review
-  has_one_attached :PO_document
+  has_one_attached :po_document
 
   validates :orderDate, presence: true
   # validates :approvalStatus, presence: true

@@ -12,10 +12,11 @@ class SuppliersController < ApplicationController
   end 
 
   def create 
-    supplier = Supplier.create(supplier_params)
+    @supplier = Supplier.new(name: params[:name], service: params[:service], website: params[:website], contact_email: params[:contact_email], contact_name: params[:contact_name], contact_number: params[:contact_number], description: params[:description], note: params[:note])
     # a supplier can engage with different users/companies
-    supplier.user_id = current_user.id   
-    if supplier.save
+    @supplier.user_id = current_user.id   
+    if @supplier.save
+      @supplier.logo.attach(params[:logo])
       render status: :created 
     else
       render status: 400

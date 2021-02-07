@@ -10,10 +10,11 @@ class PurchaseOrdersController < ApplicationController
   end 
 
   def create 
-    @purchase_order = PurchaseOrder.new(purchase_order_params)
+    @purchase_order = PurchaseOrder.new(orderDate: params[:orderDate], approvalStatus: params[:approvalStatus], totalPrice: params[:totalPrice], delivered: params[:delivered], supplier_id: params[:supplier_id])
     # a purchase_order can engage with different users/companies
     @purchase_order.user_id = current_user.id   
     if @purchase_order.save
+      @purchase_order.po_document.attach(params[:po_document])
       render status: :created 
     else
       render status: :bad_request

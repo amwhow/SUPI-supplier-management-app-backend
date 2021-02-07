@@ -3,7 +3,7 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :update, :destroy]
   
   def index
-    @invoices = current_user.Invoice.all
+    @invoices = current_user.invoices
     render json: @invoices
   end
 
@@ -12,9 +12,10 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    @invoice = Invoice.new(invoice_params)
+    @invoice = Invoice.new(purchase_order_id: params[:purchase_order_id], receivedDate: params[:receivedDate], dueDate: params[:dueDate], totalPrice: params[:totalPrice], paid: params[:paid], invoice_document: params[:invoice_document])
     @invoice.user_id = current_user.id
     if @invoice.save
+      @invoice.invoice_document.attach(params[:invoice_document])
       render status: :created
     else
       render status: :bad_request
