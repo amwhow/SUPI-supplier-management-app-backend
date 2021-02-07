@@ -1,4 +1,6 @@
 class SuppliersController < ApplicationController
+  before_action :set_supplier, only: [:show, :update]
+
   def index 
     # should be current_user.suppliers
     @suppliers = current_user.suppliers
