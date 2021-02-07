@@ -1,5 +1,5 @@
 class SuppliersController < ApplicationController
-  before_action :set_supplier, only: [:show, :update]
+  before_action :set_supplier, only: [:show, :update, :show_pos]
 
   def index 
     # should be current_user.suppliers
@@ -9,6 +9,16 @@ class SuppliersController < ApplicationController
 
   def show 
     render json: @supplier
+  end 
+  
+  def show_pos 
+    reviews = []
+    invoices = []
+    @supplier.purchase_orders.map do |po| 
+      reviews.push(po.review) 
+      invoices.push(po.invoice) 
+    end
+    render json: { pos: @supplier.purchase_orders, reviews: reviews, invoices: invoices }
   end 
 
   def create 

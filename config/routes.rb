@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post '/sign_up', to: 'users#create'
   post '/login', to: 'users#sign_in'
   get '/status', to: 'status#index'
+  get '/suppliers/:id/purchase_orders', to: 'suppliers#show_pos'
 
   # post '/login', to: 'user_token#create'
   # post '/sign_up', to: 'users#create'
