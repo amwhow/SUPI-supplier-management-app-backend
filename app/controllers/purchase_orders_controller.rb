@@ -1,4 +1,6 @@
 class PurchaseOrdersController < ApplicationController
+  before_action :set_purchase_order, only: [:show, :update, :destroy]
+
   def index 
     # should be current_user.purchage_orders
     @purchase_orders = current_user.purchase_orders
@@ -6,7 +8,8 @@ class PurchaseOrdersController < ApplicationController
   end
 
   def show 
-    render json: @purchase_order
+    po_doc = rails_blob_path(@purchase_order.po_document)
+    render json: {po: @purchase_order, file: po_doc}
   end 
 
   def create 
