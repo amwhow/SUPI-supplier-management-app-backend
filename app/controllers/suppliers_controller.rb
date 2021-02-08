@@ -1,10 +1,29 @@
 class SuppliersController < ApplicationController
   before_action :set_supplier, only: [:show, :update, :show_pos]
-
+  # get all POs, invoices and supplier contacts for current user
   def index 
-    # should be current_user.suppliers
-    @suppliers = current_user.suppliers
-    render json: @suppliers
+    suppliers = current_user.suppliers
+    contacts = []
+    purchase_orders = []
+    reviews = []
+    invoices = []
+    if suppliers.length > 0
+        suppliers.map do |supplier| 
+          contacts.push({supplierName: supplier.name, contactName: supplier.contact_name, contactEmail: supplier.contact_email})
+          if supplier.purchase_orders.length > 0
+            supplier.purchase_orders.map do |po|
+              purchase_orders.push(po)
+              if po.review != nil
+                reviews.push(po.review) 
+              end
+              if po.invoice != nil
+              invoices.push(po.invoice) 
+              end
+            end
+          end
+        end
+    end
+    render json: { suppliers: suppliers, contacts: contacts, purchase_orders: purchase_orders, reviews: reviews, invoices: invoices }
   end
 
   def show 
@@ -14,9 +33,15 @@ class SuppliersController < ApplicationController
   def show_pos 
     reviews = []
     invoices = []
-    @supplier.purchase_orders.map do |po| 
-      reviews.push(po.review) 
-      invoices.push(po.invoice) 
+    if @supplier.purchase_orders != nil
+      @supplier.purchase_orders.map do |po| 
+        if po.review != nil
+          reviews.push(po.review) 
+        end
+        if po.invoice != nil
+        invoices.push(po.invoice) 
+        end
+      end
     end
     render json: { pos: @supplier.purchase_orders, reviews: reviews, invoices: invoices }
   end 
