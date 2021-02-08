@@ -5,15 +5,23 @@ Rails.application.routes.draw do
   resources :invoices
   resources :documents
   resources :reviews
-  post 'purchase_orders/:id/reviews/new', to: 'reviews#create'
-  post 'purchase_orders/:id/invoices/new', to: 'invoices#create'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
   post '/sign_up', to: 'users#create'
   post '/login', to: 'users#sign_in'
   get '/status', to: 'status#index'
-  get '/suppliers/:id/purchase_orders', to: 'suppliers#show_pos'
+  # get '/suppliers/:id/purchase_orders', to: 'suppliers#show_pos'
 
-  # post '/login', to: 'user_token#create'
-  # post '/sign_up', to: 'users#create'
+  scope 'dashboard' do
+    resources :suppliers
+    resources :purchase_orders
+    resources :documents
+    resources :invoices
+    post 'purchase_orders/:id/reviews/new', to: 'reviews#create'
+    post 'purchase_orders/:id/invoices/new', to: 'invoices#create'
+    scope 'suppliers/:id' do
+      resources :purchase_orders
+      resources :documents
+      resources :invoices
+    end
+  end
 end
