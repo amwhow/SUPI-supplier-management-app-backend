@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-  has_many :suppliers
-  has_many :purchase_orders
-  has_many :documents
-  has_many :invoices
+  has_many :suppliers, dependent: :destroy
+  has_many :purchase_orders, dependent: :destroy
+  has_many :documents, dependent: :destroy
+  has_many :invoices, dependent: :destroy
   has_one_attached :logo
   has_secure_password
   
