@@ -25,7 +25,8 @@ class PurchaseOrdersController < ApplicationController
   end
 
   def update 
-    if @purchase_order.update(purchase_order_params)
+    if @purchase_order.update(orderDate: params[:orderDate], approvalStatus: params[:approvalStatus], totalPrice: params[:totalPrice], delivered: params[:delivered], supplier_id: params[:supplier_id])
+      @purchase_order.po_document.attach(params[:po_document])
       render status: :no_content 
     else 
       render status: :bad_request
