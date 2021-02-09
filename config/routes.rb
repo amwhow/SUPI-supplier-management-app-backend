@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  default_url_options host: 'https://localhost:3000'
+  default_url_options host: 'https://warm-peak-06763.herokuapp.com/'
   resources :suppliers
   resources :purchase_orders
   resources :invoices
