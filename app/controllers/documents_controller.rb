@@ -4,7 +4,9 @@ class DocumentsController < ApplicationController
 
   def index
     @documents = current_user.documents
-    render json: @documents
+    if @documents != nil 
+      render json: @documents
+    end
   end
 
   def show
@@ -37,7 +39,7 @@ class DocumentsController < ApplicationController
   private
 
   def document_params
-    params.require(:document).permit(:supplier_id, :expiryDate, :documentType, :supplier_document)
+    params.require(:document).permit(:supplier_id, :expiryDate, :documentType, :supplier_document, :supplier_name)
   end
 
   def set_document
