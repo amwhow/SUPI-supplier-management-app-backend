@@ -23,7 +23,7 @@ class InvoicesController < ApplicationController
   end
 
   def update
-    if @invoice.update(purchase_order_id: params[:purchase_order_id], receivedDate: params[:receivedDate], dueDate: params[:dueDate], totalPrice: params[:totalPrice], paid: params[:paid], invoice_document: params[:invoice_document])
+    if @invoice.update(purchase_order_id: @invoice.purchase_order_id, receivedDate: params[:receivedDate], dueDate: params[:dueDate], totalPrice: params[:totalPrice], paid: params[:paid], invoice_document: params[:invoice_document])
       @invoice.invoice_document.attach(params[:invoice_document])
       render status: :no_content
     else

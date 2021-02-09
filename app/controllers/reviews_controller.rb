@@ -22,7 +22,7 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    if @review.update(review_params)
+    if @review.update(purchase_order_id: @review.purchase_order_id, qualityRating: params[:qualityRating], reliabilityRating: params[:reliabilityRating], costRating: params[:costRating], comment: params[:comment])
       render status: :no_content
     else
       render status: :bad_request
