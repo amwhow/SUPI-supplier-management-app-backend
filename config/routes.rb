@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  default_url_options :host => "http://localhost:3000"
+  default_url_options :host => "https://localhost:3000"
   resources :suppliers
   resources :purchase_orders
   resources :invoices
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post '/sign_up', to: 'users#create'
   post '/login', to: 'users#sign_in'
   get '/status', to: 'status#index'
-  get '/suppliers/:id/purchase_orders', to: 'suppliers#show_pos'
+  get '/suppliers/:id/pos', to: 'suppliers#show_pos'
 
     scope 'suppliers/:id' do
       resources :purchase_orders
