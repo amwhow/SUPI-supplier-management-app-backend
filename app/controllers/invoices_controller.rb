@@ -1,7 +1,7 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user
-  before_action :set_invoice, only: [:show, :update, :destroy]
-  
+  before_action :set_invoice, only: %i[show update destroy]
+
   def index
     @invoices = current_user.invoices
     render json: @invoices
@@ -12,7 +12,8 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    @invoice = Invoice.new(purchase_order_id: params[:purchase_order_id], receivedDate: params[:receivedDate], dueDate: params[:dueDate], totalPrice: params[:totalPrice], paid: params[:paid], invoice_document: params[:invoice_document])
+    @invoice = Invoice.new(purchase_order_id: params[:purchase_order_id], receivedDate: params[:receivedDate],
+                           dueDate: params[:dueDate], totalPrice: params[:totalPrice], paid: params[:paid], invoice_document: params[:invoice_document])
     @invoice.user_id = current_user.id
     if @invoice.save
       @invoice.invoice_document.attach(params[:invoice_document])
@@ -23,7 +24,8 @@ class InvoicesController < ApplicationController
   end
 
   def update
-    if @invoice.update(purchase_order_id: @invoice.purchase_order_id, receivedDate: params[:receivedDate], dueDate: params[:dueDate], totalPrice: params[:totalPrice], paid: params[:paid], invoice_document: params[:invoice_document])
+    if @invoice.update(purchase_order_id: @invoice.purchase_order_id, receivedDate: params[:receivedDate],
+                       dueDate: params[:dueDate], totalPrice: params[:totalPrice], paid: params[:paid], invoice_document: params[:invoice_document])
       @invoice.invoice_document.attach(params[:invoice_document])
       render status: :no_content
     else
@@ -38,7 +40,7 @@ class InvoicesController < ApplicationController
   private
 
   def invoice_params
-    params.require(:invoice).permit( :purchase_order_id, :receivedDate, :dueDate, :totalPrice, :paid, :invoice_document)
+    params.require(:invoice).permit(:purchase_order_id, :receivedDate, :dueDate, :totalPrice, :paid, :invoice_document)
   end
 
   def set_invoice

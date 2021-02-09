@@ -1,12 +1,10 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user
-  before_action :set_document, only: [:show, :update, :destroy]
+  before_action :set_document, only: %i[show update destroy]
 
   def index
     @documents = current_user.documents
-    if @documents != nil 
-      render json: @documents
-    end
+    render json: @documents unless @documents.nil?
   end
 
   def show
@@ -14,7 +12,8 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    @document = Document.new(supplier_id: params[:supplier_id], expiryDate: params[:expiryDate], documentType: params[:documentType], supplier_document: params[:supplier_document])
+    @document = Document.new(supplier_id: params[:supplier_id], expiryDate: params[:expiryDate],
+                             documentType: params[:documentType], supplier_document: params[:supplier_document])
     @document.user_id = current_user.id
     if @document.save
       @document.supplier_document.attach(params[:supplier_document])
@@ -25,7 +24,8 @@ class DocumentsController < ApplicationController
   end
 
   def update
-    if @document.update(supplier_id: params[:supplier_id], expiryDate: params[:expiryDate], documentType: params[:documentType], supplier_document: params[:supplier_document])
+    if @document.update(supplier_id: params[:supplier_id], expiryDate: params[:expiryDate],
+                        documentType: params[:documentType], supplier_document: params[:supplier_document])
       @document.supplier_document.attach(params[:supplier_document])
       render status: :no_content
     else

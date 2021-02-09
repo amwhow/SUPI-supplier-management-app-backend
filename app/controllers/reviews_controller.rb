@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user
-  before_action :set_review, only: [:show, :update, :destroy]
+  before_action :set_review, only: %i[show update destroy]
 
   def index
     @reviews = current_user.Review.all
@@ -22,7 +22,8 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    if @review.update(purchase_order_id: @review.purchase_order_id, qualityRating: params[:qualityRating], reliabilityRating: params[:reliabilityRating], costRating: params[:costRating], comment: params[:comment])
+    if @review.update(purchase_order_id: @review.purchase_order_id, qualityRating: params[:qualityRating],
+                      reliabilityRating: params[:reliabilityRating], costRating: params[:costRating], comment: params[:comment])
       render status: :no_content
     else
       render status: :bad_request

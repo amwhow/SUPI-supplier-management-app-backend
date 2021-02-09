@@ -13,7 +13,7 @@ class CreateSuppliers < ActiveRecord::Migration[6.1]
       # t.references :purchase_order, foreign_key: true
       # t.references :document, foreign_key: true
       # t.references :user_supplier, foreign_key: true
-      
+
       t.timestamps
     end
   end

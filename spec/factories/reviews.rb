@@ -3,6 +3,6 @@ FactoryBot.define do
     qualityRating { 1 }
     reliabilityRating { 1 }
     costRating { 1 }
-    comment { "MyText" }
+    comment { 'MyText' }
   end
 end
