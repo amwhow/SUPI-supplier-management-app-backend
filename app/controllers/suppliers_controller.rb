@@ -59,7 +59,8 @@ class SuppliersController < ApplicationController
   end
 
   def update 
-    if @supplier.update(supplier_params)
+    if @supplier.update(name: params[:name], service: params[:service], website: params[:website], contact_email: params[:contact_email], contact_name: params[:contact_name], contact_number: params[:contact_number], description: params[:description], note: params[:note])
+      @supplier.logo.attach(params[:logo])
       render status: :no_content 
     else 
       render status: :bad_request

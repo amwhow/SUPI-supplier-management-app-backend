@@ -25,7 +25,8 @@ class DocumentsController < ApplicationController
   end
 
   def update
-    if @document.update(document_params)
+    if @document.update(supplier_id: params[:supplier_id], expiryDate: params[:expiryDate], documentType: params[:documentType], supplier_document: params[:supplier_document])
+      @document.supplier_document.attach(params[:supplier_document])
       render status: :no_content
     else
       render status: :bad_request
