@@ -1,5 +1,5 @@
 class SuppliersController < ApplicationController
-  before_action :set_supplier, only: %i[show update show_pos]
+  before_action :set_supplier, only: %i[show update show_pos show_reviews documents]
   # get all POs, invoices and supplier contacts for current user
   def index
     suppliers = current_user.suppliers
@@ -28,16 +28,19 @@ class SuppliersController < ApplicationController
     render json: @supplier
   end
 
-  def show_pos
+  def show_reviews
     reviews = []
     invoices = []
     unless @supplier.purchase_orders.nil?
       @supplier.purchase_orders.map do |po|
         reviews.push(po.review) unless po.review.nil?
-        invoices.push(po.invoice) unless po.invoice.nil?
       end
     end
-    render json: { pos: @supplier.purchase_orders, reviews: reviews, invoices: invoices }
+    render json: reviews 
+  end
+
+  def documents 
+    render json: @supplier.documents
   end
 
   def create
