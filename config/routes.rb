@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   post '/sign_up', to: 'users#create'
   post '/login', to: 'users#sign_in'
   get '/status', to: 'status#index'
-  get '/suppliers/:id/pos', to: 'suppliers#show_pos'
+  get '/suppliers/:id/pos', to: 'purchase_orders#supplier'
+  get '/suppliers/:id/invoices', to: 'purchase_orders#supplier_invoice'
+  get '/suppliers/:id/documents', to: 'suppliers#documents'
+  get '/suppliers/:id/reviews', to: 'suppliers#show_reviews'
 
   scope 'suppliers/:id' do
     resources :purchase_orders
