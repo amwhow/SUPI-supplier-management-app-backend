@@ -1,8 +1,8 @@
 class PurchaseOrdersController < ApplicationController
-  before_action :set_purchase_order, only: %i[show update destroy]
+  before_action :set_purchase_order, :set_purchase_orders_supplier, :set_invoice_supplier, only: %i[show update destroy supplier supplier_invoice]
 
   def index
-    # should be current_user.purchage_orders
+    # should be current_user.purchase_orders
     @purchase_orders = current_user.purchase_orders
     render json: @purchase_orders
   end
@@ -10,6 +10,15 @@ class PurchaseOrdersController < ApplicationController
   def show
     po_doc = rails_blob_path(@purchase_order.po_document)
     render json: { po: @purchase_order, file: po_doc }
+  end
+
+  def supplier
+    # render json: { po: @purchase_orders_supplier, invoice: @invoice_supplier }
+    render json: @purchase_orders_supplier
+  end
+
+  def supplier_invoice 
+    render json: @invoice_supplier
   end
 
   def create
@@ -43,6 +52,18 @@ class PurchaseOrdersController < ApplicationController
 
   def set_purchase_order
     @purchase_order = PurchaseOrder.find(params[:id])
+  end
+
+  def set_purchase_orders_supplier
+    @purchase_orders_supplier = PurchaseOrder.where("supplier_id = #{params[:id]}")
+  end
+  
+  def set_invoice_supplier
+    po_ids = []
+    @purchase_orders_supplier.each {|po| po_ids.push(po.id)}
+    # @invoice_supplier = @purchase_orders_supplier.map { |element| element.invoice }
+    invoice_all = Invoice.all
+    @invoice_supplier = invoice_all.where(purchase_order_id:po_ids)
   end
 
   def purchase_order_params
