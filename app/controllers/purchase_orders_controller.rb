@@ -1,4 +1,5 @@
 class PurchaseOrdersController < ApplicationController
+  before_action :authenticate_user
   before_action :set_purchase_order, :set_purchase_orders_supplier, :set_invoice_supplier, only: %i[show update destroy supplier supplier_invoice]
 
   def index
